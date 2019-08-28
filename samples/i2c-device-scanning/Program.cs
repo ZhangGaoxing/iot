@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Device.I2c;
-using System.Device.I2c.Drivers;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace I2cDeviceScanning
@@ -28,7 +26,7 @@ namespace I2cDeviceScanning
             for (int address = 1; address < 127; address++)
             {
                 I2cConnectionSettings settings = new I2cConnectionSettings(busId, address);
-                device = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? (I2cDevice)new UnixI2cDevice(settings) : new Windows10I2cDevice(settings);
+                device = I2cDevice.Create(settings);
 
                 try
                 {
